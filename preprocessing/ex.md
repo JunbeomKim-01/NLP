@@ -11,6 +11,14 @@
 ## 토큰화 중 생기는 선택
 예를 들어봅시다.
 Don't be fooled by the dark sounding name, Mr. Jone's Orphanage is as cheery as cheery goes for a pastry shop.
+Don't
+Don t
+Dont
+Do n't
+Jone's
+Jone s
+Jone
+Jones
 
 ## 토큰화 중 고려 사항 
 
@@ -23,3 +31,7 @@ Don't be fooled by the dark sounding name, Mr. Jone's Orphanage is as cheery as 
 토큰화 작업에서 종종 영어권 언어의 아포스트로피(')는 압축된 단어를 다시 펼치는 역할을 하기도 합니다. 예를 들어 what're는 what are의 줄임말이며, we're는 we are의 줄임말입니다. 위의 예에서 re를 접어(clitic)이라고 합니다. 즉, 단어가 줄임말로 쓰일 때 생기는 형태를 말합니다. 가령 I am을 줄인 I'm이 있을 때, m을 접어라고 합니다.
 
 New York이라는 단어나 rock 'n' roll이라는 단어를 봅시다. 이 단어들은 하나의 단어이지만 중간에 띄어쓰기가 존재합니다. 사용 용도에 따라서, 하나의 단어 사이에 띄어쓰기가 있는 경우에도 하나의 토큰으로 봐야하는 경우도 있을 수 있으므로, 토큰화 작업은 저러한 단어를 하나로 인식할 수 있는 능력도 가져야합니다.
+
+### 표준토큰화 Penn Treebank Tokenization
+규칙 1. 하이푼으로 구성된 단어는 하나로 유지한다.
+규칙 2. doesn't와 같이 아포스트로피로 '접어'가 함께하는 단어는 분리해준다.
