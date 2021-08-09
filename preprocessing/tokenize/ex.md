@@ -2,7 +2,7 @@
 # 텍스트 전처리 
 
 ## 단어 전처리
-토큰의 기준을 단어(word)로 하는 경우, 단어 토큰화(word tokenization)라고 합니다. 다만, 여기서 단어(word)는 단어 단위 외에도 단어구, 의미를 갖는 문자열로도 간주되기도 합니다.
+### 토큰의 기준을 단어(word)로 하는 경우, 단어 토큰화(word tokenization)라고 합니다. 다만, 여기서 단어(word)는 단어 단위 외에도 단어구, 의미를 갖는 문자열로도 간주되기도 합니다.
 예를 들어보겠습니다. 아래의 입력으로부터 구두점(punctuation)과 같은 문자는 제외시키는 간단한 단어 토큰화 작업을 해봅시다. 구두점이란, 마침표(.), 컴마(,), 물음표(?), 세미콜론(;), 느낌표(!) 등과 같은 기호를 말합니다.
 입력: Time is an illusion. Lunchtime double so!
 이러한 입력으로부터 구두점을 제외시킨 토큰화 작업의 결과는 다음과 같습니다.
@@ -45,3 +45,38 @@ EX2) Since I'm actively looking for Ph.D. students, I get the same question a do
 예를 들어 위의 예제들에 마침표를 기준으로 문장 토큰화를 적용해본다면 어떨까요? 첫번째 예제에서는 보내줘.에서 그리고 두번째 예제에서는 year.에서 처음으로 문장이 끝난 것으로 인식하는 것이 제대로 문장의 끝을 예측했다고 볼 수 있을 것입니다. 하지만 단순히 마침표(.)로 문장을 구분짓는다고 가정하면, 문장의 끝이 나오기 전에 이미 마침표가 여러번 등장하여 예상한 결과가 나오지 않게 됩니다.
 
 그렇기 때문에 사용하는 코퍼스가 어떤 국적의 언어인지, 또는 해당 코퍼스 내에서 특수문자들이 어떻게 사용되고 있는지에 따라서 직접 규칙들을 정의해볼 수 있겠습니다. 물론, 100% 정확도를 얻는 일은 쉬운 일이 아닙니다. 갖고있는 코퍼스 데이터에 오타나, 문장의 구성이 엉망이라면 정해놓은 규칙이 소용이 없을 수 있기 때문입니다.
+
+```python
+
+import numpy
+import tensorflow
+import nltk
+import pandas
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import WordPunctTokenizer
+# nltk.download('punkt')
+
+#   토큰화 어퍼스트로피를 함께 문자처리 ex)don't ->  do ,n't
+print(nltk.tokenize.word_tokenize("Don't be fooled by the dark sounding name, Mr. Jone's Orphanage is as cheery as cheery goes for a pastry shop."))
+
+# 토큰화  어퍼스트로피를 다른 문자 처리 ex) don't -> don ,', t
+
+from nltk.tokenize import WordPunctTokenizer
+print(WordPunctTokenizer().tokenize("Don't be fooled by the dark sounding name, Mr. Jone's Orphanage is as cheery as cheery goes for a pastry shop."))
+
+
+from nltk.tokenize import TreebankWordTokenizer
+
+tokenizer=TreebankWordTokenizer()
+text= "Don't be fooled by the dark sounding name, Mr. Jone's Orphanage is as cheery as cheery goes for a pastry shop."
+print(tokenizer.tokenize(text))
+
+from konlpy.tag import Okt
+
+print(Okt().morphs("열심히 코딩한 당신, 연휴에는 여행을 가봐요"))     # 형태소 추출
+print(Okt().pos("열심히 코딩한 당신, 연휴에는 여행을 가봐요"))        # 형태소마다 태그를 달아 토큰화
+print(Okt().nouns("열심히 코딩한 당신, 연휴에는 여행을 가봐요"))      # 명사만을 토큰화
+
+from konlpy.tag import Kkma
+print(Kkma().morphs("열심히 코딩한 당신, 연휴에는 여행을 가봐요"))
+```
